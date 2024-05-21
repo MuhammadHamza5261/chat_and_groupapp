@@ -42,9 +42,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
 
   final formKey = GlobalKey<FormState>();
 
-
-
-
   void _submitForm() async{
 
     setState(() {
@@ -100,6 +97,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
             key: formKey,
             child: Center(
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text('Groupie',
                     style: Theme.of(context).textTheme.headlineLarge!.copyWith(
@@ -220,7 +219,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         },
                         child: const Text(
                           'Register',
-                          style: TextStyle(fontSize: 18),
+                          style: TextStyle(
+                              fontSize: 18,
+                            color: Colors.white,
+                          ),
                         ),
                     ),
                   ),

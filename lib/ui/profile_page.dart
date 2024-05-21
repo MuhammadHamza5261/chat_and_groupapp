@@ -21,7 +21,6 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
   AuthService authService = AuthService();
 
 
-
   @override
   Widget build(BuildContext context) {
 

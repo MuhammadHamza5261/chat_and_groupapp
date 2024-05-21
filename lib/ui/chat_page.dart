@@ -9,17 +9,16 @@ class ChatPage extends StatefulWidget {
   final String groupId;
   final String groupName;
   final String userName;
-  const ChatPage({Key? key,
-        required this.groupId,
-        required this.groupName,
-        required this.userName})
+  const ChatPage({Key? key, required this.groupId,
+      required this.groupName,
+      required this.userName})
       :super(key: key);
 
   @override
   State<ChatPage> createState() => _ChatPageState();
 }
 
-class _ChatPageState extends State<ChatPage> {
+  class _ChatPageState extends State<ChatPage> {
   Stream<QuerySnapshot>? chats;
   TextEditingController messageController = TextEditingController();
 
@@ -38,6 +37,7 @@ class _ChatPageState extends State<ChatPage> {
         chats = val;
       });
     });
+
     DataBaseService().getGroupAdmin(widget.groupId).then((val) {
       setState(() {
         admin = val;
@@ -128,6 +128,9 @@ class _ChatPageState extends State<ChatPage> {
       ),
     );
   }
+
+
+
 
   chatMessages() {
     return StreamBuilder(
