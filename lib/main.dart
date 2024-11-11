@@ -67,10 +67,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       navigatorKey: NavigationKey.navigationKey,
-      title: 'Flutter App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+
       home: isSignedIn ? const HomePage() : const RegisterScreen(),
       // home: HomePageScreen(),
     );

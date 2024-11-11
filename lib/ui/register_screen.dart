@@ -4,13 +4,14 @@ import 'package:chat_app/service/auth_service.dart';
 import 'package:chat_app/ui/login_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import '../styles/app_colors.dart';
 import '../values/colors.dart';
 import '../values/dimens.dart';
 import '../values/images.dart';
-import '../widgets/custom_text_field.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_text_field_two.dart';
 import '../widgets/routes.dart';
 import 'home_page.dart';
-
 
 
 class RegisterScreen extends StatefulWidget {
@@ -22,11 +23,6 @@ class RegisterScreen extends StatefulWidget {
 
 class _RegisterScreenState extends State<RegisterScreen> {
 
-  var width = AppConstants.width;
-  var height = AppConstants.height;
-
-
-  //text editing controller
   final nameController =  TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -34,13 +30,10 @@ class _RegisterScreenState extends State<RegisterScreen> {
   bool _isLoading = false;
   bool obscure = true;
 
-  // String fullName =.text;
-  // String email = "";
-  // String password = "";
 
   AuthService authService = AuthService();
 
-  final formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
 
   void _submitForm() async{
 
@@ -74,7 +67,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
           'Invalid email or password',
           textAlign: TextAlign.center,
         ),
-          backgroundColor: AppColors.red10,
+          backgroundColor: AppColor.red10,
         ),
       );
     }) ;
@@ -92,141 +85,173 @@ class _RegisterScreenState extends State<RegisterScreen> {
         child: CircularProgressIndicator(),
       ): SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 80),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
           child: Form(
-            key: formKey,
+            key: _formKey,
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text('Groupie',
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                        color: AppColors.black10,
+                  const SizedBox(
+                    height: Dimens.dimens30,
+                  ),
+
+                  const SizedBox(
+                    height: Dimens.dimens25,
+                  ),
+                  Image.asset(Images.loginImage,width: 200,),
+                  const SizedBox(
+                    height: Dimens.dimens25,
+                  ),
+                  Text('Welcome!!',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: AppColor.black10,
                     ),
                   ),
-                  const SizedBox(
-                    height: Dimens.dimens5,
-                  ),
-                  Text('Create your account now to chat and explore',
-                    style: Theme.of(context).textTheme.titleMedium,),
-                  const SizedBox(
-                    height: Dimens.dimens10,
-                  ),
-                  Image.asset(Images.loginImage,width: 250,),
-
                   const SizedBox(
                     height: Dimens.dimens20,
                   ),
+                  Text('Create your account now to chat and explore',
+                    style: Theme.of(context).textTheme.titleSmall,),
 
-                  //name text field
-                  SizedBox(
-                    height: 75,
-                    child: CustomTextField(
-                      prefixIcon: const Icon(Icons.person,color: Colors.black,),
-                      validation: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your name';
-                        }
-                        return null;
-                      },
-                      onTap: () {},
-                      isActive: true,
-                      controller: nameController,
-                      labelText: 'Full Name',
-                    ),
-                  ),
                   const SizedBox(
-                    height: Dimens.dimens12,
+                    height: Dimens.dimens30,
                   ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: CustomInputFieldTwo(
 
-                  //email text field
-                  SizedBox(
-                    height: 75,
-                    child: CustomTextField(
-                      prefixIcon: const Icon(
-                        Icons.email,color: Colors.black,
+                      hintText: 'User Name',
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontWeight: FontWeight.w300,
+                        color: AppColor.black10
                       ),
-                      validation: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your email';
+                      controller: nameController,
+                      prefixIcon: Icons.person,
+                      validator: (String? text) {
+                        if (text!.isEmpty) {
+                          return 'Enter user name';
                         }
-                        // You can add more specific email validation logicif needed
-                        else if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(value)) {
-                          return 'Please enter a valid email address';
-                        }
+
                         return null;
                       },
-                      onTap: () {},
-                      isActive: true,
-                      controller: emailController,
-                      labelText: 'Email or phone number',
                     ),
                   ),
+
+
+                  const SizedBox(
+                    height: Dimens.dimens12,
+                  ),
+                  Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: CustomInputFieldTwo(
+
+                      hintText: 'Email',
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: AppColor.black10
+                      ),
+                      controller: emailController,
+                      prefixIcon: Icons.email,
+                      validator: (String? text) {
+                        if (text!.isEmpty) {
+                          return 'Enter email';
+                        }
+                        else if(!text.contains('@')){
+                          return 'Enter a valid email';
+                        }
+
+                        return null;
+                      },
+                    ),
+                  ),
+
                   const SizedBox(
                     height: Dimens.dimens12,
                   ),
 
-                  //  password text field
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: CustomInputFieldTwo(
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
 
-                  SizedBox(
-                    height: 75,
-                    child: CustomTextField(
-                      prefixIcon: const Icon(Icons.lock,color: Colors.black,),
-                      validation: (String? value) {
-                        if (value!.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        else if(!RegExp(r'^[a-zA-Z0-9]*$').hasMatch(value)) {
-                          return 'Only letters and digits are allowed';
-                        }
-                        // You can add more specific email validation logic if needed
-                        return null;
-                      },
-
-                      onTap: () {},
-                      isActive: true,
-                      obscureText: obscure,
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            obscure = !obscure;
-                          });
-                        },
-                        child: Text(obscure ? "Show" : "Hide"),
+                      hintText: 'Password',
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: AppColor.black10
                       ),
                       controller: passwordController,
-                      labelText: 'Password',
+                      prefixIcon: Icons.lock,
+                      validator: (String? text) {
+                        if (text!.isEmpty) {
+                          return 'Enter password';
+                        }
+
+
+                        return null;
+                      },
                     ),
                   ),
+
+
 
                   // btn
                   const SizedBox(
-                    height: Dimens.dimens40,
+                    height: Dimens.dimens20,
                   ),
-                  SizedBox(
-                    width: width*0.9,
-                    height: height*0.065,
-                    child:  ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          primary: Colors.deepOrange,
+                  // SizedBox(
+                  //   width: width*0.9,
+                  //   height: height*0.065,
+                  //   child:  ElevatedButton(
+                  //       style: ElevatedButton.styleFrom(
+                  //         primary: Colors.deepOrange,
+                  //       ),
+                  //       onPressed: (){
+                  //         if(formKey.currentState!.validate())
+                  //         {
+                  //           _submitForm();
+                  //         }
+                  //       },
+                  //       child: const Text(
+                  //         'Register',
+                  //         style: TextStyle(
+                  //             fontSize: 18,
+                  //           color: Colors.white,
+                  //         ),
+                  //       ),
+                  //   ),
+                  // ),
+                  // row
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: SizedBox(
+                      width: width,
+                      child: CustomButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                        onPressed: (){
-                          if(formKey.currentState!.validate())
-                          {
+                        buttonColor: Colors.deepOrange,
+                        onPressed: () {
+                          if (_formKey.currentState!.validate()) {
                             _submitForm();
+
                           }
                         },
-                        child: const Text(
-                          'Register',
-                          style: TextStyle(
-                              fontSize: 18,
-                            color: Colors.white,
+                        child: Center(
+                          child:  Text(
+                            'Submit',
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
+                      ),
                     ),
                   ),
-                  // row
                   const SizedBox(
                     height: Dimens.dimens20,
                   ),
@@ -234,6 +259,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     TextSpan(
                       text: ('Don\'t have an account?'),
                       children:[
+
                         TextSpan(text:'Login',
                             style: const TextStyle(
                                 fontWeight: FontWeight.bold,

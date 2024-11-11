@@ -28,36 +28,36 @@ class AppTheme {
     displayMedium: const TextStyle(
       fontSize: 24,
       fontWeight: FontWeight.w600,
-      color:AppColors.black9,
+      color:AppColor.black9,
     ),
     displaySmall: const TextStyle(
       fontSize: 22,
       fontWeight: FontWeight.w600,
-      color:AppColors.black9,
+      color:AppColor.black9,
     ),
     headlineMedium: const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w500,
-        color:AppColors.black9
+        color:AppColor.black9
     ),
     headlineLarge: const TextStyle(
         fontSize: 20,
         fontWeight: FontWeight.w500,
-        color:AppColors.black9
+        color:AppColor.black9
     ),
     headlineSmall: const TextStyle(
       fontSize: 14,
       fontWeight: FontWeight.w500,
-      color:AppColors.black9,
+      color:AppColor.black9,
     ),
     titleLarge: const TextStyle(
         fontSize: 12,
         fontWeight: FontWeight.w600,
-        color:AppColors.black9
+        color:AppColor.black9
     ),
     titleMedium: const TextStyle(
       fontSize: 10,
-      color:AppColors.black9,
+      color:AppColor.black9,
     ),
   )
       .apply(
@@ -73,8 +73,8 @@ class AppTheme {
   );
 
   static const _colorScheme = ColorScheme.light(
-    primary: AppColors.black9,
-    secondary: AppColors.black9,
+    primary: AppColor.black9,
+    secondary: AppColor.black9,
     onSecondary: Colors.white,
   );
 

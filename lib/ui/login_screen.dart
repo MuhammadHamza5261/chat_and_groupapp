@@ -12,8 +12,11 @@ import 'package:flutter/material.dart';
 import '../config/app_constants.dart';
 import '../helper/helper_functions.dart';
 import '../service/auth_service.dart';
+import '../styles/app_colors.dart';
 import '../values/colors.dart';
-import '../widgets/custom_text_field.dart';
+import '../widgets/custom_button.dart';
+import '../widgets/custom_text_field_two.dart';
+
 
 
 class FirstScreen extends StatefulWidget {
@@ -64,8 +67,6 @@ class _FirstScreenState extends State<FirstScreen> {
          snapshot.docs[0]['fullName'],
        );
 
-
-
         nextScreen(context,  HomePage());
 
       }
@@ -89,7 +90,7 @@ class _FirstScreenState extends State<FirstScreen> {
           'Invalid email or password',
           textAlign: TextAlign.center,
         ),
-          backgroundColor: AppColors.red10,
+          backgroundColor: AppColor.red10,
         ),
       );
     }) ;
@@ -113,38 +114,48 @@ class _FirstScreenState extends State<FirstScreen> {
             child: Center(
               child: Column(
                 children: [
-                  Text('Groupie',
-                    style: Theme.of(context).textTheme.headlineLarge!.copyWith(color: AppColors.black10),),
-                  const SizedBox(
-                    height: Dimens.dimens5,
+                  Image.asset(Images.loginImage,width: 200,),
+                  SizedBox(
+                    height: Dimens.dimens25,
                   ),
-                  Text('Login now to see what they are talking',style: Theme.of(context).textTheme.titleMedium,),
-                  const SizedBox(
-                    height: Dimens.dimens10,
+                  Text('Welcome Back!!',
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                      color: AppColor.black10,
+                    ),
                   ),
-                  Image.asset(Images.loginImage,width: 250,),
-                 const SizedBox(
+                  const SizedBox(
                     height: Dimens.dimens20,
+                  ),
+                  Text('If you are already register!! please login',
+                    style: Theme.of(context).textTheme.titleSmall,),
+
+                  const SizedBox(
+                    height: Dimens.dimens30,
                   ),
 
                   //email text field
-                  SizedBox(
-                    child: CustomTextField(
-                      prefixIcon: Icon(Icons.email,color: Colors.black,),
-                      validation: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your email';
+                  Padding(
+                    padding:
+                    const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: CustomInputFieldTwo(
+
+                      hintText: 'Email',
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: AppColor.black10
+                      ),
+                      controller: emailController,
+                      prefixIcon: Icons.email,
+                      validator: (String? text) {
+                        if (text!.isEmpty) {
+                          return 'Enter email';
                         }
-                        // You can add more specific email validation logicif needed
-                        if (!RegExp(r'^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$').hasMatch(value)) {
-                          return 'Please enter a valid email address';
+                        else if(!text.contains('@')){
+                          return 'Enter a valid email';
                         }
+
                         return null;
                       },
-                      onTap: () {},
-                      isActive: true,
-                      controller: emailController,
-                      labelText: 'Email or phone number',
                     ),
                   ),
                   const SizedBox(
@@ -153,36 +164,27 @@ class _FirstScreenState extends State<FirstScreen> {
 
                 //  password text field
 
-                  SizedBox(
-                    height: 75,
-                    child: CustomTextField(
-                      prefixIcon: Icon(Icons.lock,color: Colors.black,),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: CustomInputFieldTwo(
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
 
-                      validation: (value) {
-                        if (value == null || value.isEmpty) {
-                          return 'Please enter your password';
-                        }
-                        if (!RegExp(r'^[a-zA-Z0-9]*$').hasMatch(value)) {
-                          return 'Only letters and digits are allowed';
-                        }
-
-                        // You can add more specific email validation logic if needed
-                        return null;
-                      },
-
-                      onTap: () {},
-                      isActive: true,
-                      obscureText: obscure,
-                      suffixIcon: InkWell(
-                        onTap: () {
-                          setState(() {
-                            obscure = !obscure;
-                          });
-                        },
-                        child: Text(obscure ? "Show" : "Hide"),
+                      hintText: 'Password',
+                      hintStyle: Theme.of(context).textTheme.bodyText2!.copyWith(
+                          fontWeight: FontWeight.w300,
+                          color: AppColor.black10
                       ),
                       controller: passwordController,
-                      labelText: 'Password',
+                      prefixIcon: Icons.lock,
+                      validator: (String? text) {
+                        if (text!.isEmpty) {
+                          return 'Enter password';
+                        }
+
+
+                        return null;
+                      },
                     ),
                   ),
 
@@ -190,21 +192,30 @@ class _FirstScreenState extends State<FirstScreen> {
                   const SizedBox(
                     height: Dimens.dimens40,
                   ),
-                  SizedBox(
-                    width: width*0.9,
-                    height: height*0.065,
-                    child:  ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.deepOrange,
-                      ),
-                        onPressed: (){
-                          if(formKey.currentState!.validate())
-                          {
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+                    child: SizedBox(
+                      width: width,
+                      child: CustomButton(
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        buttonColor: Colors.deepOrange,
+                        onPressed: () {
+                          if (formKey.currentState!.validate()) {
                             _submitForm();
-                          }
 
+                          }
                         },
-                        child: const  Text('Login',style: TextStyle(fontSize: 18),)
+                        child: Center(
+                          child:  Text(
+                            'Login',
+                            style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                              color: AppColors.white,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 // row

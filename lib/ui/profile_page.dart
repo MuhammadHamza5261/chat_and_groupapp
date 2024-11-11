@@ -99,7 +99,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
               selected: true,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
               leading: const Icon(Icons.group,),
-              title: const  Text('Groups',style: TextStyle(color: AppColors.black10),),
+              title: const  Text('Groups',style: TextStyle(color: AppColor.black10),),
             ),
 
             // profile list tile
@@ -110,7 +110,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
 
               contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
               leading: const Icon(Icons.person,),
-              title: const  Text('Profile',style: TextStyle(color: AppColors.black10),),
+              title: const  Text('Profile',style: TextStyle(color: AppColor.black10),),
             ),
 
 
@@ -148,7 +148,7 @@ class _ProfilePageScreenState extends State<ProfilePageScreen> {
 
               contentPadding: const EdgeInsets.symmetric(horizontal: 20,vertical: 5),
               leading: const Icon(Icons.exit_to_app,),
-              title: const  Text('Logout',style: TextStyle(color: AppColors.black10),),
+              title: const  Text('Logout',style: TextStyle(color: AppColor.black10),),
             ),
 
           ],

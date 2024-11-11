@@ -2,15 +2,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HelperFunctions{
 
-//  keys
+  //  keys
+
+  static String userLoggedInKey = "LOGGEDINKEY";
+  static String userNameKey = "USERNAMEKEY";
+  static String userEmailKey = "USEREMAILKEY";
 
 
-static String userLoggedInKey = "LOGGEDINKEY";
-static String userNameKey = "USERNAMEKEY";
-static String userEmailKey = "USEREMAILKEY";
-
-
-// saving the data in of user logged in
+  // saving the data in of user logged in
 
   static Future<bool> saveUserLoggedInStatus(bool isUserLoggedIn) async{
 

@@ -1,44 +1,94 @@
 import 'package:flutter/material.dart';
-
-import '../values/colors.dart';
+import '../styles/app_colors.dart';
+import '../styles/font_styles.dart';
+import '../styles/sizes.dart';
 
 class CustomButton extends StatelessWidget {
-  final VoidCallback onTap ;
-  final String title ;
-  final Color? backgroundColor ;
-  final int? borderRadius ;
-  final Color? titleColor ;
-  final int? titleSize ;
-  final int? width ;
-  final int? height ;
-  final Color? borderColor ;
-  const CustomButton({Key? key, required this.onTap, required this.title, this.backgroundColor, this.borderRadius, this.titleColor, this.titleSize, this.width, this.height, this.borderColor}) : super(key: key);
+  final double? height;
+  final double? width;
+  final double? minHeight;
+  final double? minWidth;
+  final Widget? child;
+  final String? text;
+  final VoidCallback? onPressed;
+  final OutlinedBorder? shape;
+  final double? elevation;
+  final double? borderRadius;
+  final Color? buttonColor;
+  final Color? splashColor;
+  final Color? shadowColor;
+  final Gradient? gradientColor;
+  final BorderRadiusGeometry? gradientBorderRadius;
+  final EdgeInsetsGeometry? padding;
+  final VoidCallback? onLongPress;
+  final bool? disable;
+
+  const CustomButton({
+    this.height,
+    this.width,
+    this.minHeight,
+    this.minWidth,
+    this.child,
+    this.text,
+    this.onPressed,
+    this.shape,
+    this.elevation,
+    this.borderRadius,
+    this.buttonColor,
+    this.splashColor,
+    this.shadowColor,
+    this.gradientColor,
+    this.gradientBorderRadius,
+    this.padding,
+    this.onLongPress,
+    this.disable,
+    Key? key,
+  })  : assert(text != null || child != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    double mediaWidth = MediaQuery.of(context).size.width ;
+    ElevatedButton.styleFrom();
 
-    return InkWell(
-      onTap: onTap,
+    return ElevatedButton(
+      onPressed: disable != null ? () {} : onPressed,
+      style: ElevatedButton.styleFrom(
+        padding: padding ?? EdgeInsets.zero,
+        shape: shape ??
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(Sizes.buttonR24),
+            ),
+        elevation: elevation ?? 0,
+        backgroundColor: buttonColor,
+        foregroundColor: splashColor,
+        shadowColor: shadowColor,
+        minimumSize: Size(
+          minWidth ?? Sizes.buttonWidth60,
+          minHeight ?? Sizes.buttonHeight40,
+        ),
+        tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      ),
       child: Container(
-        width: width?.toDouble() ?? mediaWidth,
-        height: height?.toDouble() ?? 56,
-        decoration: BoxDecoration(
-            color: backgroundColor ?? AppColors.primary,
-            border: Border.all(
-              color: borderColor ?? Colors.transparent,
+        alignment: Alignment.center,
+        height: height ?? Sizes.buttonHeight48,
+        width: width ?? Sizes.buttonWidth220,
+        decoration: buttonColor == null
+            ? BoxDecoration(
+          borderRadius: gradientBorderRadius ??
+              BorderRadius.circular(Sizes.buttonR24),
+          gradient: disable != null
+              ? AppColors.disableIngredientColor
+              : gradientColor ?? AppColors.primaryIngredientColor,
+        )
+            : null,
+        child: child ??
+            Text(
+              text ?? '',
+              style: TextStyle(
+                color: buttonColor == null ? Colors.white : null,
+                fontWeight: FontStyles.fontWeightSemiBold,
+              ),
             ),
-            borderRadius: BorderRadius.circular(borderRadius?.toDouble() ?? 8)
-        ),
-        child: Center(
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.headlineMedium!.copyWith(
-              color: titleColor ?? AppColors.white,
-              fontSize: titleSize?.toDouble(),
-            ),
-          ),
-        ),
       ),
     );
   }
